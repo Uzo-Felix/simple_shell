@@ -33,7 +33,7 @@ void prompt(char **av, char **env)
 				string[x] = 0;
 			x++;
 		}
-		arg[0] = string;
+		argv[0] = string;
 		child_pid = fork();
 		if (child_pid == -1)
 		{

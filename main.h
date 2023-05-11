@@ -7,7 +7,7 @@
 #include <string.h>
 
 void prompt(char **av, char **env);
-
+int subtract(int p, int q);
 
 
 

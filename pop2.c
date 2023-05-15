@@ -19,9 +19,8 @@ void prompted(char **av, char **env)
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-			printf("cisfun$ ");
-		num_char = getline(&string, &n, stdin);
+		(isatty(STDIN_FILENO)) ?
+		(printf("cisfun$ "), num_char = getline(&string, &n, stdin)) : (0);
 		if (num_char == -1)
 		{
 			free(string);
@@ -30,9 +29,7 @@ void prompted(char **av, char **env)
 		q = 0;
 		while (string[q])
 		{
-			if (string[q] == '\n')
-				string[q] = 0;
-			q++;
+			(string[q] == '\n') ? (string[q] = 0, q++) : (0);
 		}
 		p = 0;
 		argv[p] = strtok(string, "");
@@ -53,3 +50,4 @@ void prompted(char **av, char **env)
 			wait(&status);
 	}
 }
+

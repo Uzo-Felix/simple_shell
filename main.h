@@ -8,6 +8,7 @@
 
 void prompt(char **av, char **env);
 int subtract(int p, int q);
+void prompted(char **av, char **env);
 
 
 
@@ -20,3 +21,4 @@ int subtract(int p, int q);
 
 
 #endif
+

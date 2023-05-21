@@ -12,6 +12,7 @@
 void prompt(char **av, char **env);
 int subtract(int p, int q);
 void prompted(char **av, char **env);
+void promptedd(char **av, char **env);
 char *_strtok(char *line, char *delim);
 void string_long(long number, char *string, int base);
 int vert(char *p);

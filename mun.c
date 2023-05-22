@@ -32,7 +32,6 @@ void string_long(long number, char *string, int base)
 		string[z++] = '-';
 
 	string[z] = '\0';
-	str_reverse(string);
 }
 
 

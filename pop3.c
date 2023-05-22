@@ -2,7 +2,7 @@
 #include <sys/wait.h>
 #define MAX_COMMAND 10
 /**
- * prompted - prompt function
+ * promptedd - prompt function
  * @av: argument vector
  * @env: environ parameter
  *
@@ -19,11 +19,11 @@ void promptedd(char **av, char **env)
 
 	while (1)
 	{
-<<<<<<< HEAD
+
 		(isatty(STDIN_FILENO)) ? (printf("cisfun$ "),
 		 num_char = getline(&string, &n, stdin)) : (0);
 		num_char == -1 ? (free(string), exit(EXIT_FAILURE)) : 0;
-=======
+
 		(isatty(STDIN_FILENO)) ?
 		(printf("cisfun$ "), num_char = getline(&string, &n, stdin)) : (0);
 		if (num_char == -1)
@@ -31,7 +31,7 @@ void promptedd(char **av, char **env)
 			free(string);
 			exit(EXIT_FAILURE);
 		}
->>>>>>> a1653e5105f6286d684214fe9ad6bc94e7afbfbd
+
 		q = 0;
 		while (string[q])
 		{
@@ -41,7 +41,7 @@ void promptedd(char **av, char **env)
 		argv[p] = strtok(string, "");
 		while (argv[p])
 			argv[++p] = strtok(NULL, "");
-<<<<<<< HEAD
+
 		access(argv[0], X_OK) == -1 ?
 		(printf("%s: command not found\n", argv[0]), continue) : (0);
 		(child_pid == -1) ?
@@ -53,7 +53,7 @@ void promptedd(char **av, char **env)
 				perror("execve");
 				exit(EXIT_FAILURE);
 			}
-=======
+
 		if (access(argv[0], X_OK) == -1)
         {
             printf("%s: command not found\n", argv[0]);
@@ -72,15 +72,11 @@ void promptedd(char **av, char **env)
                 perror("execve");
                 exit(EXIT_FAILURE);
             }
->>>>>>> a1653e5105f6286d684214fe9ad6bc94e7afbfbd
+
 		}
 		else
 			wait(&status);
 	}
-<<<<<<< HEAD
-};
-=======
 }
 
 
->>>>>>> a1653e5105f6286d684214fe9ad6bc94e7afbfbd

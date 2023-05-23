@@ -19,19 +19,9 @@ void promptedd(char **av, char **env)
 
 	while (1)
 	{
-
 		(isatty(STDIN_FILENO)) ? (printf("cisfun$ "),
 		 num_char = getline(&string, &n, stdin)) : (0);
 		num_char == -1 ? (free(string), exit(EXIT_FAILURE)) : 0;
-
-		(isatty(STDIN_FILENO)) ?
-		(printf("cisfun$ "), num_char = getline(&string, &n, stdin)) : (0);
-		if (num_char == -1)
-		{
-			free(string);
-			exit(EXIT_FAILURE);
-		}
-
 		q = 0;
 		while (string[q])
 		{
@@ -41,9 +31,8 @@ void promptedd(char **av, char **env)
 		argv[p] = strtok(string, "");
 		while (argv[p])
 			argv[++p] = strtok(NULL, "");
-
 		access(argv[0], X_OK) == -1 ?
-		(printf("%s: command not found\n", argv[0]), continue) : (0);
+		(printf("%s: command not found\n", argv[0])) : (0);
 		(child_pid == -1) ?
 		(free(string), exit(EXIT_FAILURE)) : (0);
 		if (child_pid == 0)
@@ -53,30 +42,8 @@ void promptedd(char **av, char **env)
 				perror("execve");
 				exit(EXIT_FAILURE);
 			}
-
-		if (access(argv[0], X_OK) == -1)
-        {
-            printf("%s: command not found\n", argv[0]);
-            continue;
-    	}
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			free(string);
-			exit(EXIT_FAILURE);
-		}
-		if (child_pid == 0)
-		{
-			if (execve(argv[0], argv, env) == -1)
-            {
-                perror("execve");
-                exit(EXIT_FAILURE);
-            }
-
 		}
 		else
 			wait(&status);
 	}
-}
-
-
+};

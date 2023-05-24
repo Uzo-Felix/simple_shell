@@ -1,77 +1,77 @@
 #include "main.h"
 
 /**
- * record - it displays the record list and line by one command
- * @info: its structure containing potential args
- *
+ * _myhistory - it displays the hist list
+ * @info: Struc
  *  Return: 0
  */
-int record(info_t *info)
+int _myhistory(info_t *info)
 {
 	print_list(info->history);
 	return (0);
-
-/**
- * name - it sets names to str
- * @info: structure para
- * @str: its the string name
- *
- * Return: it returns 0 on success, 1 on error
- */
-int name(info_t *info, char *str)
-{
-	char *r, z;
-	int cet;
-
-	r = _strchr(str, '=');
-	if (!r)
-		return (1);
-	z = *r;
-	*r = 0;
-	cet = delete_node_at_index(&(info->alias),
-		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
-	*r = z;
-	return (cet);
 }
 
 /**
- * named - gives names to str
- * @info: it is para structure
- * @str: its the str name
+ * unset_alias - it sets name
+ * @info: para stru
+ * @str: str
  *
- * Return: 0 on success and 1 on err
+ * Return: its 0 on success and 1 on error
  */
-int named(info_t *info, char *str)
+int unset_alias(info_t *info, char *str)
 {
-	char *r;
+	char *x, y;
+	int ret;
 
-	r = _strchr(str, '=');
-	if (!r)
+	x = _strchr(str, '=');
+	if (!x)
 		return (1);
-	if (!*++r)
-		return (name(info, str));
+	y = *x;
+	*x = 0;
+	ret = delete_node_at_index(&(info->alias),
+		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	*x = y;
+	return (ret);
+}
 
-	name(info, str);
+/**
+ * set_alias - it sets alias
+ * @info: its para struct
+ * @str: its str
+ *
+ * Return: 0 on success and 1 on error
+ */
+int set_alias(info_t *info, char *str)
+{
+	char *x;
+
+	x = _strchr(str, '=');
+	if (!x)
+		return (1);
+	if (!*++x)
+		return (unset_alias(info, str));
+
+	unset_alias(info, str);
 	return (add_node_end(&(info->alias), str, 0) == NULL);
 }
 
 /**
- * nameedd - it prints a named str
- * @node: the alias node
+ * print_alias - it prints name
+ * @node: node
  *
- * Return: 0 on success and 1 on err
+ * Return: its 0 on success and  1 on error
  */
-int nameedd(list_t *node)
+int print_alias(list_t *node)
 {
-	char *r = NULL, *y = NULL;
+	char *x = NULL, *a = NULL;
 
 	if (node)
 	{
-		r = _strchr(node->str, '=');
-		for (y = node->str; y <= r; y++)
-			_putchar(*y);
+		x = _strchr(node->str, '=');
+		for (a = node->str; a <= x; a++)
+			_putchar(*a);
 		_putchar('\'');
-		_puts(r + 1);
+		_puts(x + 1);
 		_puts("'\n");
 		return (0);
 	}
@@ -79,15 +79,15 @@ int nameedd(list_t *node)
 }
 
 /**
- * damed - it imitates the alias builtn
- * @info: it is a struc containing potential argums
+ * _myalias - imittates the alias
+ * @info: Struc
  *
  *  Return: 0
  */
-int damed(info_t *info)
+int _myalias(info_t *info)
 {
-	int d = 0;
-	char *r = NULL;
+	int a = 0;
+	char *x = NULL;
 	list_t *node = NULL;
 
 	if (info->argc == 1)
@@ -95,18 +95,18 @@ int damed(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			nameedd(node);
+			print_alias(node);
 			node = node->next;
 		}
 		return (0);
 	}
-	for (d = 1; info->argv[d]; d++)
+	for (a = 1; info->argv[a]; a++)
 	{
-		r = _strchr(info->argv[d], '=');
-		if (r)
-			named(info, info->argv[d]);
+		x = _strchr(info->argv[a], '=');
+		if (x)
+			set_alias(info, info->argv[a]);
 		else
-			nameedd(node_starts_with(info->alias, info->argv[d], '='));
+			print_alias(node_starts_with(info->alias, info->argv[a], '='));
 	}
 
 	return (0);

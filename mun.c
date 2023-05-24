@@ -1,84 +1,74 @@
 #include "main.h"
 
 /**
- * string_long - it convert  num to a str.
- * @number: num to be converten.
- * @string: buffer to save.
- * @base: base
+ * communal - returns true if shell is in communal mode
+ * @info: struct address
  *
- * Return: void.
+ * Return: 1 if in communal mode, 0 otherwise
  */
-void string_long(long number, char *string, int base)
+int communal(info_t *info)
 {
-	int z = 0, a = 0;
-	long d = number;
-	char p[] = {"0123456789abcdef"};
-
-	if (d == 0)
-		string[z++] = '0';
-
-	if (string[0] == '-')
-		a = 1;
-
-	while (d)
-	{
-		if (d < 0)
-			string[z++] = p[-(d % base)];
-		else
-			string[z++] = p[d % base];
-		d /= base;
-	}
-	if (a)
-		string[z++] = '-';
-
-	string[z] = '\0';
-}
-
-
-/**
- * _vert - it converts a str to int.
- *
- * @p: pointer.
- * Return: 0.
- */
-int _vert(char *p)
-{
-	int w = 1;
-	unsigned int number = 0;
-
-	while (!('0' <= *p && *p <= '9') && *p != '\0')
-	{
-		if (*p == '-')
-			w *= -1;
-		if (*p == '+')
-			w *= +1;
-		p++;
-	}
-
-	while ('0' <= *p && *p <= '9' && *p != '\0')
-	{
-
-		number = (number * 10) + (*p - '0');
-		p++;
-	}
-	return (number * w);
+	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
 /**
- * charac_count - it count coincidences of character.
- *
- * @string: pointer
- * @character: it is string with  chars
- * Return: 0.
+ * trotter - looks if char is a delimeter
+ * @a: char to check
+ * @delim: the deli str
+ * Return: Returns 0
  */
-int charac_count(char *string, char *character)
+int trotter(char a, char *delim)
 {
-	int y = 0, j = 0;
+	while (*delim)
+		if (*delim++ == a)
+			return (1);
+	return (0);
+}
 
-	for (; string[y]; y++)
+/**
+ *betta - looks for alphabet character
+ *@q: The char to input
+ *Return: 0
+ */
+
+int betta(int q)
+{
+	if ((q >= 'a' && q <= 'z') || (q >= 'A' && q <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
+/**
+ *dot - it converts a str to int
+ *@y: its str to be converted
+ *Return: it gives no numbers in string and return 0
+ */
+
+int dot(char *y)
+{
+	int f, hint = 1, mark = 0, product;
+	unsigned int answer = 0;
+
+	for (f = 0;  y[f] != '\0' && mark != 2; f++)
 	{
-		if (string[y] == character[0])
-			j++;
+		if (y[f] == '-')
+			hint *= -1;
+
+		if (y[f] >= '0' && y[f] <= '9')
+		{
+			mark = 1;
+			answer *= 10;
+			answer += (y[f] - '0');
+		}
+		else if (mark == 1)
+			mark = 2;
 	}
-	return (j);
+
+	if (hint == -1)
+		product = -answer;
+	else
+		product = answer;
+
+	return (product);
 }

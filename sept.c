@@ -64,10 +64,10 @@ ssize_t get_input(info_t *info)
 		h = i;
 		p = buf + i;
 
-		check_chain(info, buf, &h, i, len);
+		checkChainn(info, buf, &h, i, len);
 		while (h < len)
 		{
-			if (is_chain(info, buf, &h))
+			if (isChainn(info, buf, &h))
 				break;
 			h++;
 		}

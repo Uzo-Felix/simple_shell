@@ -1,74 +1,74 @@
 #include "main.h"
 
 /**
- * communal - returns true if shell is in communal mode
- * @info: struct address
+ * interactive - it returns true
+ * @info: it struct
  *
- * Return: 1 if in communal mode, 0 otherwise
+ * Return: it returns 1 if interactive mode
  */
-int communal(info_t *info)
+int interactive(info_t *info)
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
 /**
- * trotter - looks if char is a delimeter
- * @a: char to check
- * @delim: the deli str
- * Return: Returns 0
+ * is_delim - it check delimeter
+ * @p: its char
+ * @delim: the string
+ * Return: 0
  */
-int trotter(char a, char *delim)
+int is_delim(char p, char *delim)
 {
 	while (*delim)
-		if (*delim++ == a)
+		if (*delim++ == p)
 			return (1);
 	return (0);
 }
 
 /**
- *betta - looks for alphabet character
- *@q: The char to input
+ *_isalpha - looks alpha
+ *@p: char
  *Return: 0
  */
 
-int betta(int q)
+int _isalpha(int p)
 {
-	if ((q >= 'a' && q <= 'z') || (q >= 'A' && q <= 'Z'))
+	if ((p >= 'a' && p <= 'z') || (p >= 'A' && p <= 'Z'))
 		return (1);
 	else
 		return (0);
 }
 
 /**
- *dot - it converts a str to int
- *@y: its str to be converted
- *Return: it gives no numbers in string and return 0
+ *_atoi - it converts str
+ *@y: str
+ *Return: 0 if no numbers in string
  */
 
-int dot(char *y)
+int _atoi(char *y)
 {
-	int f, hint = 1, mark = 0, product;
-	unsigned int answer = 0;
+	int a, sign = 1, flag = 0, output;
+	unsigned int result = 0;
 
-	for (f = 0;  y[f] != '\0' && mark != 2; f++)
+	for (a = 0;  y[a] != '\0' && flag != 2; a++)
 	{
-		if (y[f] == '-')
-			hint *= -1;
+		if (y[a] == '-')
+			sign *= -1;
 
-		if (y[f] >= '0' && y[f] <= '9')
+		if (y[a] >= '0' && y[a] <= '9')
 		{
-			mark = 1;
-			answer *= 10;
-			answer += (y[f] - '0');
+			flag = 1;
+			result *= 10;
+			result += (y[a] - '0');
 		}
-		else if (mark == 1)
-			mark = 2;
+		else if (flag == 1)
+			flag = 2;
 	}
 
-	if (hint == -1)
-		product = -answer;
+	if (sign == -1)
+		output = -result;
 	else
-		product = answer;
+		output = result;
 
-	return (product);
+	return (output);
 }

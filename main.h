@@ -13,9 +13,9 @@
 #include <sys/stat.h>
 
 int subtract(int p, int q);
-int outit(info_t *info);
-int bet(info_t *info);
-int buzz(info_t *info);
+int _mycd(info_t *);
+int _myhelp(info_t *);
+int _myexit(info_t *);
 int record(info_t *info);
 int name(info_t *info, char *str);
 int named(info_t *info, char *str);
@@ -24,10 +24,10 @@ int damed(info_t *info);
 
 void promptedd(char **av, char **env);
 char *_strtok(char *line, char *delim);
-int communal(info_t *info);
-int trotter(char a, char *delim);
-int betta(int q);
-int dot(char *y);
+int _isalpha(int);
+int _atoi(char *);
+int interactive(info_t *);
+int is_delim(char, char *);
 
 
 /**
@@ -92,7 +92,12 @@ typedef struct known
 } info_t;
 
 
-
+#define CMD_AND		2
+#define CMD_CHAIN	3
+#define CMD_NORM	0
+#define CMD_OR		1
+#define CONVERT_UNSIGNED	2
+#define CONVERT_LOWERCASE	1
 
 
 #endif

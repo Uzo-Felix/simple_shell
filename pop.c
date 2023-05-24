@@ -1,19 +1,19 @@
 #include "main.h"
 
 /**
- * outit - goes out of the shell
+ * _myexit - goes out of the shell
  * @info: it is struc containing potential args
  *
  *  Return: it gives (0) if info.argv[0] != "exit"
  */
-int outit(info_t *info)
+int _myexit(info_t *info)
 {
-	int goesout;
+	int x;
 
 	if (info->argv[1])
 	{
-		goesout = _erratoi(info->argv[1]);
-		if (goesout == -1)
+		x = _erratoi(info->argv[1]);
+		if (x == -1)
 		{
 			info->status = 2;
 			print_error(info, "Illegal number: ");
@@ -29,14 +29,14 @@ int outit(info_t *info)
 }
 
 /**
- * bet - it changes the present dir of the process
- * @info: it is struc containing potential argus
+ * _mycd - it changes the current dir
+ * @info: Struct
  *
  *  Return: 0
  */
-int bet(info_t *info)
+int _mycd(info_t *info)
 {
-	char *p, *rent, buffer[1024];
+	char *p, *dir, buffer[1024];
 	int chdir_ret;
 
 	p = getcwd(buffer, 1024);
@@ -44,12 +44,12 @@ int bet(info_t *info)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
-		rent = _getenv(info, "HOME=");
-		if (!rent)
+		dir = _getenv(info, "HOME=");
+		if (!dir)
 			chdir_ret = /* TODO: what should this be? */
-				chdir((rent = _getenv(info, "PWD=")) ? rent : "/");
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
 		else
-			chdir_ret = chdir(rent);
+			chdir_ret = chdir(dir);
 	}
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{
@@ -61,7 +61,7 @@ int bet(info_t *info)
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
 		chdir_ret = /* TODO: what should this be? */
-			chdir((rent = _getenv(info, "OLDPWD=")) ? rent : "/");
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
 	}
 	else
 		chdir_ret = chdir(info->argv[1]);
@@ -79,18 +79,18 @@ int bet(info_t *info)
 }
 
 /**
- * buzz - it alters the current dir of the process
- * @info: it is structure containing potential argus
+ * _myhelp - it changes current dir
+ * @info: Struc
  *
  *  Return: 0
  */
-int buzz(info_t *info)
+int _myhelp(info_t *info)
 {
-	char **argum_arr;
+	char **arg_array;
 
-	argum_arr = info->argv;
+	arg_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*argum_arr);
+		_puts(*arg_array); /* temp att_unused workaround */
 	return (0);
 }

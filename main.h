@@ -16,14 +16,17 @@ int subtract(int p, int q);
 int _mycd(info_t *);
 int _myhelp(info_t *);
 int _myexit(info_t *);
-int record(info_t *info);
-int name(info_t *info, char *str);
-int named(info_t *info, char *str);
-int nameedd(list_t *node);
-int damed(info_t *info);
+int _myalias(info_t *);
+int _myhistory(info_t *);
+int print_alias(list_t *node);
+int set_alias(info_t *info, char *str);
+int _getline(info_t *, char **, size_t *);
+void sigintHandler(int);
+ssize_t get_input(info_t *);
+int bfree(void **);
+
 
 void promptedd(char **av, char **env);
-char *_strtok(char *line, char *delim);
 int _isalpha(int);
 int _atoi(char *);
 int interactive(info_t *);
@@ -104,6 +107,8 @@ int _putsfd(char *str, int file_desc);
 #define CMD_OR		1
 #define CONVERT_UNSIGNED	2
 #define CONVERT_LOWERCASE	1
+#define USE_STRTOK 0
+#define USE_GETLINE 0
 
 /* toem_pop3.c */
 int isChainn(info_t *, char *, size_t *);

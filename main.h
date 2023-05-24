@@ -85,6 +85,12 @@ typedef struct known
 	int env_changed;
 	int status;
 
+    /* toem_errors.c */
+void _eputs(char *);
+int _eputchar(char);
+int _putfd(char a, int file_desc);
+int _putsfd(char *str, int file_desc);
+
 	char **cmd_buf;
 	int cmd_buf_type;
 	int readfd;
@@ -99,6 +105,22 @@ typedef struct known
 #define CONVERT_UNSIGNED	2
 #define CONVERT_LOWERCASE	1
 
+/* toem_pop3.c */
+int isChainn(info_t *, char *, size_t *);
+void checkChainn(info_t *, char *, size_t *, size_t, size_t);
+int replaceAliass(info_t *);
+int replaceVariables(info_t *);
+int replaceStr(char **, char *);
+
+/* toem_info.c */
+void clearInfo(info_t *);
+void setInfo(info_t *, char **);
+void freeInfo(info_t *, int);
+
+/*toem_line.c */
+ssize_t get_inputt(info_t *);
+int getlinee(info_t *, char **, size_t *);
+void sigintHa(int);
 
 #endif
 

@@ -186,10 +186,9 @@ ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
-
-void clearInfo(info_t *);
-void setInfo(info_t *, char **);
-void freeInfo(info_t *, int);
+void clear_info(info_t *);
+void set_info(info_t *, char **);
+void free_info(info_t *, int);
 
 
 char *_getenv(info_t *, const char *);
@@ -224,11 +223,11 @@ list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
 
-int isChainn(info_t *, char *, size_t *);
-void checkChainn(info_t *, char *, size_t *, size_t, size_t);
-int replaceAliass(info_t *);
-int replaceVariables(info_t *);
-int replaceStr(char **, char *);
+int is_chain(info_t *, char *, size_t *);
+void check_chain(info_t *, char *, size_t *, size_t, size_t);
+int replace_alias(info_t *);
+int replace_vars(info_t *);
+int replace_string(char **, char *);
 
 
 #endif

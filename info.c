@@ -1,75 +1,88 @@
 #include "main.h"
 
 /**
- * clearInfo - initializes info_t struct
- * @info: struct address
+ * _strcpy - copies a string
+ * @dest: the destination
+ * @src: the source
+ *
+ * Return: pointer to destination
  */
-void clearInfo(info_t *info)
+char *_strcpy(char *dest, char *src)
 {
-	info->arg = NULL;
-	info->argv = NULL;
-	info->path = NULL;
-	info->argc = 0;
+	int j = 0;
+
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[j])
+	{
+		dest[j] = src[j];
+		j++;
+	}
+	dest[j] = 0;
+	return (dest);
 }
 
 /**
- * setInfo - initializes info_t struct
- * @info: struct address
- * @av: argument vector
+ * _strdup - duplicates a string
+ * @str: the string to duplicate
+ *
+ * Return: pointer to the duplicated string
  */
-void setInfo(info_t *info, char **av)
+char *_strdup(const char *str)
 {
-	int i = 0;
+	int length = 0;
+	char *ret;
 
-	info->fname = av[0];
-	if (info->arg)
+	if (str == NULL)
+		return (NULL);
+	while (*str++)
+		length++;
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
+		return (NULL);
+	for (length++; length--;)
+		ret[length] = *--str;
+	return (ret);
+}
+
+/**
+ *_puts - prints an input string
+ *@str: the string to be printed
+ *
+ * Return: Nothing
+ */
+void _puts(char *str)
+{
+	int j = 0;
+
+	if (!str)
+		return;
+	while (str[j] != '\0')
 	{
-		info->argv = strtow(info->arg, " \t");
-		if (!info->argv)
-		{
-
-			info->argv = malloc(sizeof(char *) * 2);
-			if (info->argv)
-			{
-				info->argv[0] = _strdup(info->arg);
-				info->argv[1] = NULL;
-			}
-		}
-		for (i = 0; info->argv && info->argv[i]; i++)
-			;
-		info->argc = i;
-
-		replaceAliass(info);
-		replaceVariables(info);
+		_putchar(str[j]);
+		j++;
 	}
 }
 
 /**
- * freeInfo - frees info_t struct fields
- * @info: struct address
- * @all: true if freeing all fields
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-void freeInfo(info_t *info, int all)
+int _putchar(char c)
 {
-	ffree(info->argv);
-	info->argv = NULL;
-	info->path = NULL;
-	if (all)
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
+
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		if (!info->cmd_buf)
-			free(info->arg);
-		if (info->env)
-			free_list(&(info->env));
-		if (info->history)
-			free_list(&(info->history));
-		if (info->alias)
-			free_list(&(info->alias));
-		ffree(info->environ);
-			info->environ = NULL;
-		bfree((void **)info->cmd_buf);
-		if (info->readfd > 2)
-			close(info->readfd);
-		_putchar(BUF_FLUSH);
+		write(1, buf, i);
+		i = 0;
 	}
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
+	return (1);
 }
 
